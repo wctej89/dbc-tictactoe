@@ -58,3 +58,8 @@ body {
 h1 {
   font-weight: 900;
 }
+
+.games_to_play {
+  list-style-type: none;
+  padding-left: 0;
+}

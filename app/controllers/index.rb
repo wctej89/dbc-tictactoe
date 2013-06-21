@@ -1,8 +1,34 @@
 enable :session
 
 get '/' do
+  @games = find_open_games
   erb :index
 end
+
+get '/games/new' do
+  game = Game.create
+  current_user.games << game
+  redirect "/games/#{game.id}"
+end
+
+get '/games/:id' do
+  @game = Game.find(params[:id])
+
+  erb :game_room
+end
+
+post '/games' do
+  game = Game.find(params[:id])
+  if game.user_id != current_user.id
+    game.challenger_id = current_user.id 
+  else
+    return "Stop being dumb"
+  end
+  game.save
+  redirect "/games/#{params[:id]}"
+end
+
+
 
 #----------- SESSIONS -----------
 
