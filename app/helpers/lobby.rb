@@ -1,3 +1,7 @@
-def find_open_games
-  Game.where(challenger_id: nil)
+helpers do
+
+  def find_open_games
+    Game.where(challenger_id: nil)
+  end
+
 end

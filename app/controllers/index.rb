@@ -13,8 +13,13 @@ end
 
 get '/games/:id' do
   @game = Game.find(params[:id])
-
   erb :game_room
+end
+
+get '/games/:id/opponent' do
+  @game = Game.find(params[:id])
+  @opponent = User.find(@game.challenger_id) if @game.challenger_id
+  @opponent ? @opponent.name : "nil"
 end
 
 post '/games' do

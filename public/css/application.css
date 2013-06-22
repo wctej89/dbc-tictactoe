@@ -4,6 +4,15 @@
   padding: 0px 20px 20px 20px;
 }
 
+button h3 a {
+  text-decoration: none;
+  color: black;
+}
+
+button h3 {
+  margin: 0;
+}
+
 input {
   margin: 10px 0;
 }

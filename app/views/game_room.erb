@@ -1,3 +1,7 @@
+<script src="/js/game_room.js"></script>
+
 <p>You're playing game number <%= @game.id %>.</p>
 
-<p>Your opponent is <span id="opponent_name">no one, currently</span>.</p>
+<% if current_user.id != @game.challenger_id %>
+  <p>Your opponent is <span id="opponent_name">no one, currently</span>.</p>
+<% end %>

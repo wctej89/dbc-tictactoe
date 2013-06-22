@@ -1,8 +1,9 @@
-<h1>This is the lobby.</h1>
+<h2>This is the lobby. Find an opponent!</h2>
 <form action='/games' method='post'>
   <ul class="games_to_play">
     <% @games.each do |game| %>
-    <li><input type='submit' name='id' value="Play against <%= game.user.name %>" ></li>
+    <input type="hidden" name="id" value="<%= game.id %>">
+    <li><input type='submit' name='submit' value="Play against <%= game.user.name %>" ></li>
     <%end%>
   </ul>
 </form>
