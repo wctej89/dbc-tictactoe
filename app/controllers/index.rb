@@ -22,6 +22,28 @@ get '/games/:id/opponent' do
   @opponent ? @opponent.name : "nil"
 end
 
+get '/games/:id/turn' do
+  @game = Game.find(params[:id])
+
+  if current_user.id == @game.challenger_id
+    if @game.user_turn
+      "false"
+    else
+      @game.user_turn = !@game.user_turn
+      @game.save 
+      "O"
+    end
+  else
+    if @game.user_turn
+      @game.user_turn = !@game.user_turn
+      @game.save
+      "X"
+    else
+      "false"
+    end
+  end
+end
+
 post '/games' do
   game = Game.find(params[:id])
   if game.user_id != current_user.id
@@ -32,6 +54,8 @@ post '/games' do
   game.save
   redirect "/games/#{params[:id]}"
 end
+
+
 
 
 
