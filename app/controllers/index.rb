@@ -24,6 +24,7 @@ end
 
 get '/games/:id/turn' do
   @game = Game.find(params[:id])
+  @game.current_board = # stuff from things
 
   if current_user.id == @game.challenger_id
     if @game.user_turn
@@ -53,6 +54,15 @@ post '/games' do
   end
   game.save
   redirect "/games/#{params[:id]}"
+end
+
+put '/games/:id/board' do
+  game = Game.find(params[:id])
+  game.update_attribute(:current_board, params[:current_board])
+end
+
+get '/games/:id/board' do
+  Game.find(params[:id]).current_board
 end
 
 

@@ -1,4 +1,24 @@
+setInterval(function getUpdatedBoard() {
+  $.ajax({
+    type: 'get',
+    url: window.location.pathname + "/board"
+  }).done(function(response) {
+    if (response !== "nil") {
+      setTimeout(function(){
+        $(".board").html(response);
+        getUpdatedBoard();
+      }, 500);
+    }
+  });
+}, 10000);
+
+
 $(document).ready(function(){
+  $.ajax({
+          url: window.location.pathname + "/board",
+          method: "put",
+          data: {current_board: $(".board").html()}
+        });
 
   var board = {
     0: null,
@@ -14,16 +34,24 @@ $(document).ready(function(){
 
   $(".square").on("click", function(){
     var that = this;
-    console.log("here");
     $.ajax({
       url: window.location.pathname + "/turn",
       method:"get"
     }).done(function(response){
-      console.log(response);
       if (response!=="false") {
-        console.log(that);
+        console.log($(".board").html());
         $(that).html(response);
+        $.ajax({
+          url: window.location.pathname + "/board",
+          method: "put",
+          data: {current_board: $(".board").html()}
+        });
       }
     });
   });
+
+  setTimeout(getUpdatedBoard(), 10000);
+
+// PROBLEMS: board is nested*FIXED*; default value in DB is weird and fucked up
+
 });
