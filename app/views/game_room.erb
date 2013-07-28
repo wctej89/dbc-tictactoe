@@ -1,7 +1,6 @@
 <script src="/js/game_room.js"></script>
 <script src="/js/game.js"></script>
 
-
 <p>You're playing game number <%= @game.id %>.</p>
 
 <% if current_user.id != @game.challenger_id %>
@@ -10,7 +9,23 @@
 
 <div class="board">
 <% if @game.current_board == nil %>
-  <%= erb :_board  %>
+  <div class="row">
+    <div id="square0" class="square"></div>
+    <div id="square1" class="square"></div>
+    <div id="square2" class="square"></div>
+  </div>
+
+  <div class="row">
+    <div id="square3" class="square"></div>
+    <div id="square4" class="square"></div>
+    <div id="square5" class="square"></div>
+  </div>
+
+  <div class="row">
+    <div id="square6" class="square"></div>
+    <div id="square7" class="square"></div>
+    <div id="square8" class="square"></div>
+  </div>
 <% else %>
   <%= @game.current_board %>
 <% end %>
