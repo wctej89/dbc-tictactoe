@@ -8,4 +8,10 @@
   <p>Your opponent is <span id="opponent_name">no one, currently</span>.</p>
 <% end %>
 
-<%= erb :_board %>
+<div class="board">
+<% if @game.current_board == nil %>
+  <%= erb :_board  %>
+<% else %>
+  <%= @game.current_board %>
+<% end %>
+</div>
