@@ -15,7 +15,13 @@ $(document).ready(function(){
         $(".board").html(response);
       }
     });
+    checkWinner();
   };
+
+  function freeze() {
+    $('body').append("<p class='freeze'>game over</p>");
+    debugger;      
+  }
 
   var checkWinner = function() {
     var sq = [];
@@ -33,17 +39,22 @@ $(document).ready(function(){
     var rows = [row1, row2, row3];
     var cols = [col1, col2, col3];
     var diags = [diag1, diag2];
-    if (rows.indexOf('XXX') != -1 || rows.indexOf('OOO') != -1) {
-      alert("GAME OVER");
-    } else if (cols.indexOf('XXX') != -1 || cols.indexOf('OOO') != -1) {
-      alert('GAME OVER');
-    } else if (diags.indexOf('XXX') != -1 || diags.indexOf('OOO') != -1) {
-      alert("GAME OVER");
+
+    if (rows.indexOf('XXX') != -1 || cols.indexOf('XXX') != -1 || diags.indexOf('XXX') != -1 ) {
+      var creator = $('.creator').attr('value');
+      clearInterval(getBoard);
+      alert(creator + " WINS!");
+      freeze();
+    } else if (rows.indexOf('OOO') != -1 || cols.indexOf('OOO') != -1 || diags.indexOf('OOO') != -1) {
+      var joined = $('.joined').attr('value');
+      clearInterval(getBoard);
+      alert(joined + " WINS!");
+      freeze();
     }
   }
 
   $(".board").on("click", '.square', function(){
-    if($(this).text() != "") {
+    if($(this).text() != "" || $('.freeze').text() == 'game over') {
       console.log('woo');
       return;
     }
@@ -59,9 +70,8 @@ $(document).ready(function(){
           method: "put",
           data: {current_board: $(".board").html()}
         });
-        checkWinner();
       }
     });
   });
-  setInterval(getUpdatedBoard, 2000);
+  getBoard = setInterval(getUpdatedBoard, 2000);
 });
